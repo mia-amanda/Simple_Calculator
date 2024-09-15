@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', git 'https://github.com/mia-amanda/Simple_Calculator.git'
+                git 'https://github.com/mia-amanda/Simple_Calculator.git'
             }
         }
 
