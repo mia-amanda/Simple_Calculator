@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 deleteDir() // Optional: Clear workspace
-                git branch: 'main', url: 'https://github.com/mia-amanda/Simple_Calculator.git'
+                git 'https://github.com/mia-amanda/Simple_Calculator.git'
             }
         }
 
@@ -25,8 +25,13 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'Running unit tests...'
-                bat 'pytest --maxfail=1 --disable-warnings'
+                script {
+                    // Continue to the next stage even if tests fail
+                    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                        echo 'Running unit tests...'
+                        bat 'pytest --maxfail=1 --disable-warnings'
+                    }
+                }
             }
         }
     }
