@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Running calculator script...'
-                bat 'python calculator.py'
+                bat 'python calculator.py 1 10 20'
             }
         }
 
