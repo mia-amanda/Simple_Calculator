@@ -4,30 +4,29 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/mia-amanda/Simple_Calculator.git'
+                deleteDir() // Optional: Clear workspace
+                git branch: 'main', url: 'https://github.com/mia-amanda/Simple_Calculator.git'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                // Install required dependencies listed in requirements.txt
-                sh 'pip install -r requirements.txt'
+                // Use 'bat' for Windows environment
+                bat 'pip install -r requirements.txt'
             }
         }
 
         stage('Build') {
             steps {
-                // This stage simulates the "build" step
                 echo 'Running calculator script...'
-                sh 'python calculator.py'
+                bat 'python calculator.py'
             }
         }
 
         stage('Test') {
             steps {
-                // Run the unit tests using pytest
                 echo 'Running unit tests...'
-                sh 'pytest --maxfail=1 --disable-warnings'
+                bat 'pytest --maxfail=1 --disable-warnings'
             }
         }
     }
